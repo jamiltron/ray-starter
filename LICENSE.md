@@ -1,4 +1,4 @@
-# This software is available under 2 licenses -- choose whichever you prefer.
+_This software is available under 2 licenses -- choose whichever you prefer._
 
 ## MIT License
 
