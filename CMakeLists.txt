@@ -5,8 +5,13 @@ set(NAME "raystarter")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-link_directories(${CMAKE_SOURCE_DIR}/lib)
-include_directories(${CMAKE_SOURCE_DIR}/inc)
+link_directories(
+  ${CMAKE_SOURCE_DIR}/lib
+  ${CMAKE_SOURCE_DIR}/dep/raylib/lib)
+
+include_directories(
+  ${CMAKE_SOURCE_DIR}/inc
+  ${CMAKE_SOURCE_DIR}/dep/raylib/include)
 
 find_package(RAYLIB REQUIRED)
 message(STATUS "Found raylib in ${RAYLIB_INCLUDE_DIR}")
@@ -15,7 +20,7 @@ add_executable(raystarter ${SOURCE})
 set_property(TARGET raystarter PROPERTY C_STANDARD 11)
 
 if(WIN32)
-  set(LIBS opengl32)
+  set(LIBS ${RAYLIB_LIBRARY} opengl32)
 elseif(UNIX AND NOT APPLE)
   set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -W -Wall -Wextra")
   find_package(OpenGL REQUIRED)
@@ -36,3 +41,5 @@ elseif(APPLE)
 else()
   set(LIBS)
 endif(WIN32)
+
+target_link_libraries(raystarter ${LIBS})
