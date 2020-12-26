@@ -2,13 +2,16 @@
 
 A basic skeleton of a project using Cmake to find [raylib](https://github.com/raysan5/raylib).
 
-Note that I vendor raylib in here directly just for my ease of use. This is currently the 3.0 version
+Note that I vendor raylib in here directly just for my ease of use. This is currently the 3.5 version
 built from source. If you want to supply your own version update it here, or add references in the
 FindRAYLIB.cmake file.
 
 ## Building
 
 `mkdir build; cd build; cmake ..`
+
+If you're using Visual Studio you'll probably need to right-click on your project solution and set the
+working directory to wherever your exe gets output to. I need to figure out how to set that with CMake.
 
 ## Dependencies
 

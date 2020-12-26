@@ -20,7 +20,7 @@ add_executable(raystarter ${SOURCE})
 set_property(TARGET raystarter PROPERTY C_STANDARD 11)
 
 if(WIN32)
-  set(LIBS ${RAYLIB_LIBRARY} opengl32)
+  set(LIBS ${RAYLIB_LIBRARY} opengl32 winmm)
 elseif(UNIX AND NOT APPLE)
   set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS} -W -Wall -Wextra")
   find_package(OpenGL REQUIRED)
@@ -40,6 +40,15 @@ elseif(APPLE)
   set(LIBS ${LIBS} ${APPLE_LIBS})
 else()
   set(LIBS)
+endif(WIN32)
+
+if (WIN32)
+  file (GLOB DLL_FILES
+    "dep/raylib/lib/*.dll")
+
+  foreach(DLL_FILE ${DLL_FILES})
+    add_custom_command(TARGET ${NAME} PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${DLL_FILE} $<TARGET_FILE_DIR:${NAME}>)
+  endforeach(DLL_FILE)
 endif(WIN32)
 
 target_link_libraries(raystarter ${LIBS})
