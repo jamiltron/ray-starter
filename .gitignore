@@ -55,5 +55,7 @@ build/
 .vscode
 *~
 !lib/*
+!dep/*
+!dep/raylib/lib/*
 .cache/
 CMakeFiles/
